@@ -1,0 +1,200 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>speco21</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h3>Análise do Decaimento com a Distância da Semelhança entre Comunidades de Plantas Ripícolas usando Métodos Bayesianos
+					</h3>
+					<p class="r-fit-text">Filipe S. Dias, Michael Betancourt, Patrícia María Rodríguez-González & Luís Borda-de-Água</p>
+					<p>20º Encontro Nacional de Ecologia</p>
+					<img data-src="img/biopolis_cibio.png" height=150px>
+					<img data-src="img/symple.png" height=150px>
+					<img data-src="img/cef.png" height=150px>
+				</section>
+				<section>
+					<p>Ecological patterns and processes across scales: application to river networks (RIVERSCALE)</p>
+					<img class="r-stretch" data-src="img/fct_logo.jpg" height=150px>
+					<a href="https://riverscale-proj.github.io/">https://riverscale-proj.github.io/</a>
+				</section>
+				<section>
+					<h3>Primeira Lei da Geografia</h3>
+					<blockquote cite="https://en.wikipedia.org/wiki/Tobler%27s_first_law_of_geography">
+						"Everything is related to everything else, but near things are more related than distant things"
+					</blockquote>
+					<img class="fragment" data-src="img/tobler.png">
+				</section>
+				<section>
+					<h3>Decaimento com a distância da semelhança entre comunidades</h3>
+					<ul>
+						<li class="fragment">Turnover de espécies ao longo de gradientes ambientais</li>
+						<li class="fragment">Fenómenos de "source-sink"</li>
+						<li class="fragment">Teoria das metapopulações</li>
+						<li class="fragment">Teoria da biogeografia da ilhas</li>
+					</ul>
+				</section>
+				<section>
+					<h1>Porque é que isto acontece?</h1>
+				</section>
+				<section>
+					<h3>Teorias Baseadas no Nicho Ecológico</h3>
+					<img data-src="img/gradient.png" height=400px>
+					<a href="https://ourcodingclub.github.io/tutorials/ordination/">https://ourcodingclub.github.io/tutorials/ordination/</a>
+				</section>
+				<section>
+					<h3>Teoria Neutral</h3>
+					<img data-src="img/neutral.png">
+					<a href="https://www.sciencedirect.com/science/article/abs/pii/S0169534711000942">Rosindell et al 2011</a>
+				</section>
+				<section>
+					<h3>Hipótese do Continuum</h3>
+					<img data-src="img/gravel.png">
+					<a href="http://doi.wiley.com/10.1111/j.1461-0248.2006.00884.x">Gravel et al 2006</a>
+				</section>
+				<section>
+					<h3>Enquadramento histórico</h3>
+					<ul>
+						<li class="fragment">1960 (fórmula matemática)</li>
+						<li class="fragment">Nekola & White 1999 - ecologia</li>
+						<li class="fragment">Efeito de outras variáveis para além da distância</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Estado da arte em ecossistemas ribeirinhos</h3>
+					<ul>
+						<li class="fragment">Relativamente poucos trabalhos</li>
+						<li class="fragment">Resultados díspares relativamente à influência de variáveis neutrais e de
+						variáveis ambientais</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Objectivos</h3>
+					<p>Avaliar o efeito de variáveis neutrais e de nicho ecológico sobre o decaimento
+						da semelhança das comunidades
+					</p>
+				</section>
+				<section>
+					<h3>Variáveis Neutrais (I)</h3>
+					<h5>Distância</h5>
+					<img data-src="img/fig2.png" height=500px>
+				</section>
+				<section>
+					<h3>Variáveis Neutrais (II)</h3>
+					<h5>Fluxo</h5>
+					<img data-src="img/flow.jpg">
+					<a class="r-fit-text" href="https://www.australianenvironmentaleducation.com.au/education-resources/rivers/">Source: Australian Environmental Education</a>
+				</section>
+				<section>
+					<h3>Variáveis de Nicho (I)</h3>
+					<h5>Diferença de Precipitação</h5>
+					<img data-src="img/precipitation.png" height=400px>
+					<a href="https://gpm.nasa.gov/education/water-cycle">Fonte:NASA</a>
+				</section>
+				<section>
+					<h3>Variáveis de Nicho (II)</h3>
+					<h5>Diferença de Ordem de Strahler</h5>
+					<img data-src="img/strahler.png" height=450px>
+					<a href="https://pt.wikipedia.org/wiki/N%C3%BAmero_de_Strahler">Fonte:Wiki</a>
+				</section>
+				<section>
+					<h3>Área de Estudo</h3>
+					<img data-src="img/fig1.png" height=450px>
+					<p>2003-2006</p>
+				</section>
+				<section>
+					<h3>Semelhança entre comunidades</h3>
+					<ul>
+						<li>Índice de Sørensen</li>
+						<li>Entre todas as amostras dentro da mesma bacia</li>
+					</ul>
+				</section>
+				<section>
+					<h4>Modelo</h4>
+					<img data-src="img/model.png" class="r-stretch">
+				</section>
+				<section>
+					<h4>Resultados</h4>
+					<img data-src="img/fig4.jpeg" class="r-stretch">
+				</section>
+				<section>
+					<h4>Discussão (I)</h4>
+					<h4>Distância na rede (I)</h4>
+					<ul>
+						<li class="fragment">Factores aleatórios podem causar extinções, substituição de espécies e dificultar a dispersão</li>
+						<li class="fragment">Contudo...correlação com variável ambiental não medida?</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Discussão (II)</h3>
+					<h5>Ligação através do fluxo da água</h5>
+					<ul>
+						<li class="fragment">Movimentos de polinizadores</li>
+						<li class="fragment">Dispersão de sementes através da água</li>
+						<li class="fragment">Correlação com os ventos de montanha</li>
+					</ul>
+						<img class="fragment" data-src="img/brisa.png" class="r-stretch">
+				</section>
+				<section>
+					<h3>Discussão (III)</h3>
+					<h5>Diferenças de precipitação</h5>
+					<ul>
+						<li>Gradientes climáticos marcados, que condicionam a composição das comunidades</li>
+						<li>Zonas mais secas: mais espécies terrestres</li>
+						<li>Zonas mais húmidas: mais espécies aquáticas e ripícolas</li>
+					</ul>
+					</section>
+					<section>
+						<h3>Discussão (IV)</h3>
+						<h5>Diferença de Ordem de Strahler</h5>
+						<ul>
+					 		<li class="fragment">Comunidades nas zonas de cabeceira tendem a ser bastante diferentes das comunidades mais próximas da foz do rio. </li>
+							<li class="fragment">Diferenças de disponibilidade de luz e de matéria orgânica, altitude, declive </li>
+							<li class="fragment">Explicação alternativa: efeitos de confluência</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Discussão (V)</h3>
+						<p>Observámos que tanto os factores ambientais como os factores neutrais parecem estar associados ao decaimento
+						da semelhança entre comunidades, o que está de acordo com a Hipótese do Continuum</p>
+					</section>
+					<section>
+						<img class="fragment" data-src="img/pub.png" height=500px>
+						<a href="https://www.nature.com/articles/s41598-021-01149-x">Link</a>
+					</section>
+					<section>
+						<h1>Obrigado</h1>
+						<p>fsdias@isa.ulisboa.pt</p>					
+					</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
