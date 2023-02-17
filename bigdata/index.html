@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Managing and processing big data in ecology</title>
+
+		<meta name="description" content="How to manage and process big datasets - an example with eBird data">
+		<meta name="author" content="Filipe S. Dias">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<a href="">
+						<img src="img/bigdata.webp" alt="big data" style="height: 180px; margin: 0 auto 4rem auto; background: transparent;" class="demo-logo">
+					</a>
+					<p style="font-size:150%" >How to Manage and Process Big Datasets - an Example with eBird Data</p>
+					<p>
+						<small>Journal Club - February 23th</small>
+					</p>
+					<p>
+						<small><a href="http://fsdias.github.io">Filipe S. Dias</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>What are big data?</h2>
+					<blockquote cite="https://en.wikipedia.org/wiki/Tobler%27s_first_law_of_geography">
+						"Big data primarily refers to data sets that are too large or complex to be dealt with by traditional data-processing application software."
+					</blockquote>
+					<p>Wikipedia</p>
+				
+				</section>
+
+				<section>
+					<h2>Remote sensing data</h2>
+					
+					<img data-src="img/remote_sensing.jpg" height=400px>
+				
+				</section>
+
+				<section>
+					<h2>Logger data</h2>
+					
+					<img data-src="img/loggers.png" height=400px>
+				
+				</section>
+
+				<section>
+					<h2>Citizen science</h2>
+					
+					<img data-src="img/citizen.png" height=400px>
+				
+				</section>
+
+				<section>
+					<p style="font-size:160%">What happens when you load a 7 GB .csv file into R?</p>							
+				
+				</section>
+
+				<section data-background-video="img/coffin_meme.mp4"
+				data-background-video-muted="true"
+				data-background-video-loop="true"
+				data-background-size="contain">				
+				
+				</section>
+
+			
+				<section>
+						<h2>Why though?</h2>
+				 		<blockquote cite="https://en.wikipedia.org/wiki/Tobler%27s_first_law_of_geography">
+						"The tools you learn in this book will easily handle (...) 1-2 Gb of data. 
+						If you’re routinely working with larger data (10-100 Gb, say), you should learn more about (...)"
+						</blockquote>
+						<p>Hadley Wickham and Garrett Grolemund in R for Data Science (2nd edition)</p>
+						
+				</section>
+				
+				<section>
+					<h2>Apache Arrow</h2>
+					
+					<img data-src="img/apache.png" height=450px>
+					
+					<a class="r-fit-text" href="https://www.youtube.com/watch?v=O42LUmJZPx0">Source: Doing More with Data: An Introduction to Arrow for R Users (Danielle Navarro)</a>
+				
+				</section>
+
+				<section>
+					<h2>Apache Arrow</h2>
+					
+					<img data-src="img/apache_arrow2.png" height=450px>
+
+					<a class="r-fit-text" href="https://www.youtube.com/watch?v=O42LUmJZPx0">Source: Doing More with Data: An Introduction to Arrow for R Users (Danielle Navarro)</a>
+				
+				</section>
+
+				<section>
+					<h2>Tidyverse + Arrow</h2>
+					
+					<img data-src="img/tidy_arrow.png" height=450px>					
+		
+				</section>
+
+				<section>
+					<p r-fit-text style="font-size:150%"><b>How did COVID-19 lockdowns affect birding in Portugal?</b></p>
+											
+					<img data-src="img/birding.png" height=450px>					
+		
+				</section>
+
+				<section>
+					<p r-fit-text>WTF is eBird?</h2>
+					
+					<img data-src="img/wtf_ebird.png" height=450px>					
+		
+				</section>
+	
+
+				<section>
+					<p r-fit-text style="font-size:150%"><b>eBird Basic Dataset (EBD) (PT)</b></p>
+					<ul>						
+						<li class="fragment">All eBird checklists</li>
+						<li class="fragment">Beginning of time - December 2022</li>
+						<li class="fragment">7.2 GB .txt file</li>
+						<li class="fragment">8.89 million rows</li>
+					</ul>					
+				</section>
+
+
+				<section data-auto-animate>
+					<p r-fit-text style="font-size:150%"><b>Install Apache Arrow</b></p>
+					<pre><code data-trim data-line-numbers class="R">
+					install.packages("arrow")				
+					</code></pre>
+				</section>
+				
+				<section data-auto-animate>
+					<p r-fit-text style="font-size:150%"><b>Import the dataset</b></p>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers="1|2|3-5|8|10-63|44|46|47|33|65-67"><script type="text/template">
+						library(arrow)
+						library(tidyverse)
+						data <- open_dataset(
+ 	 					sources = "ebd_PT_prv_relDec-2022.txt", 
+ 						format = "tsv")	
+
+
+						data %>% glimpse()
+
+
+
+						FileSystemDataset with 1 csv file
+8,896,216 rows x 50 columns
+$ `GLOBAL UNIQUE IDENTIFIER`     <string> "URN:CornellLabOfOrnithology:EBIRD:OBS1533374605", "URN:CornellLabO…
+$ `LAST EDITED DATE`      <timestamp[ns]> 2022-10-12 19:35:43, 2021-07-18 11:50:07, 2021-07-18 11:50:07, 2021…
+$ `TAXONOMIC ORDER`               <int64> 664, 6386, 6623, 6449, 444, 5689, 5433, 23729, 6469, 6563, 6973, 20…
+$ CATEGORY                       <string> "species", "species", "species", "species", "species", "species", "…
+$ `TAXON CONCEPT ID`             <string> "avibase-B77377EE", "avibase-FB02DD96", "avibase-4D2FF6F1", "avibas…
+$ `COMMON NAME`                  <string> "Common Eider", "Black-headed Gull", "Common Tern", "Yellow-legged …
+$ `SCIENTIFIC NAME`              <string> "Somateria mollissima", "Chroicocephalus ridibundus", "Sterna hirun…
+$ `SUBSPECIES COMMON NAME`       <string> "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",…
+$ `SUBSPECIES SCIENTIFIC NAME`   <string> "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",…
+$ `EXOTIC CODE`                  <string> "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",…
+$ `OBSERVATION COUNT`            <string> "6", "X", "X", "X", "X", "3", "1", "X", "X", "X", "X", "X", "X", "X…
+$ `BREEDING CODE`                <string> "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",…
+$ `BREEDING CATEGORY`            <string> "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",…
+$ `BEHAVIOR CODE`                <string> "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",…
+$ `AGE/SEX`                      <string> "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",…
+$ COUNTRY                        <string> "Portugal", "Portugal", "Portugal", "Portugal", "Portugal", "Portug…
+$ `COUNTRY CODE`                 <string> "PT", "PT", "PT", "PT", "PT", "PT", "PT", "PT", "PT", "PT", "PT", "…
+$ STATE                          <string> "Lisboa", "Região Autónoma dos Açores", "Região Autónoma dos Açores…
+$ `STATE CODE`                   <string> "PT-11", "PT-20", "PT-20", "PT-20", "PT-14", "PT-14", "PT-20", "PT-…
+$ COUNTY                         <string> "Cascais", "Lagoa", "Lagoa", "Lagoa", "Abrantes", "Abrantes", "Ribe…
+$ `COUNTY CODE`                  <string> "PT-11-CS", "PT-20-LG", "PT-20-LG", "PT-20-LG", "PT-14-AB", "PT-14-…
+$ `IBA CODE`                       <null> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ `BCR CODE`                       <null> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ `USFWS CODE`                     <null> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ `ATLAS BLOCK`                    <null> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ LOCALITY                       <string> "PN Sintra-Cascais--Cabo Raso", "St. Michaels, Azores", "St. Michae…
+$ `LOCALITY ID`                  <string> "L930224", "L15809663", "L15809663", "L15809663", "L22107968", "L21…
+$ `LOCALITY TYPE`                <string> "H", "P", "P", "P", "P", "H", "P", "P", "P", "P", "H", "H", "H", "H…
+$ LATITUDE                       <double> 38.70946, 37.75265, 37.75265, 37.75265, 39.40783, 39.31732, 37.7750…
+$ LONGITUDE                      <double> -9.485836, -25.530767, -25.530767, -25.530767, -8.254034, -8.222752…
+$ `OBSERVATION DATE`        <date32[day]> 1891-10-01, 1900-10-01, 1900-10-01, 1900-10-01, 1939-01-03, 1944-04…
+$ `TIME OBSERVATIONS STARTED` <time32[s]> 09:00:00,       NA,       NA,       NA,       NA,       NA,       N…
+$ `OBSERVER ID`                  <string> "obsr3419517", "obsr237338", "obsr237338", "obsr237338", "obsr35299…
+$ `SAMPLING EVENT IDENTIFIER`    <string> "S120076980", "S91932209", "S91932209", "S91932209", "S125612599", …
+$ `PROTOCOL TYPE`                <string> "Incidental", "Historical", "Historical", "Historical", "Incidental…
+$ `PROTOCOL CODE`                <string> "P20", "P62", "P62", "P62", "P20", "P62", "P20", "P62", "P62", "P62…
+$ `PROJECT CODE`                 <string> "EBIRD", "EBIRD", "EBIRD", "EBIRD", "EBIRD_POR", "EBIRD_POR", "EBIR…
+$ `DURATION MINUTES`              <int64> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ `EFFORT DISTANCE KM`           <double> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ `EFFORT AREA HA`               <double> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ `NUMBER OBSERVERS`              <int64> 1, NA, NA, NA, NA, NA, 1, NA, NA, NA, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+$ `ALL SPECIES REPORTED`          <int64> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ `GROUP IDENTIFIER`             <string> "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",…
+$ `HAS MEDIA`                     <int64> 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ APPROVED                        <int64> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+$ REVIEWED                        <int64> 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0…
+$ REASON                           <null> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ `TRIP COMMENTS`                <string> "", "", "", "", "", "", "Purple Gallinule records uploaded by Marsh…
+$ `SPECIES COMMENTS`             <string> "In Rei D. Carlos de Bragança. 2002. Inéditos - 1 das aves encontra…
+$ ``                               <null> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+		
+			data <- data %>% select(`OBSERVATION DATE`,
+						`SAMPLING EVENT IDENTIFIER`,
+               						`OBSERVER ID`,COUNTY)
+
+					</script></code></pre>
+				</section>
+
+
+				<section data-auto-animate>
+					<p rfit-text style="font-size:150%"><b>Convert to Parquet format</b></p>
+					<pre><code data-trim class="R">
+					arrow::write_dataset(data, "ebird_parquet", 
+					partitioning="COUNTY", format="parquet")				
+					</code></pre>
+				</section>
+
+				<section data-auto-animate>
+					<p rfit-text style="font-size:150%"><b>Import Parquet dataset</b></p>
+					<pre><code data-trim data-line-numbers="1-3" class="R">
+						data <- open_dataset("ebird_parquet")
+						data<-data %>% mutate(
+							year=lubdridate::year(`OBSERVATION DATE`))				
+					</code></pre>
+				</section>
+
+				<section>
+					<p rfit-text style="font-size:110%"><b>Lockdown index stringency index (2020-2022)</b></p>
+
+					<img data-src="img/ld.png" height=500px>
+				</section>
+
+				<section data-auto-animate>
+					<p r-fit-text style="font-size:120%"><b>How did the number of eBird checklists change between 2008 and 2022? Were there fewer eBird lists in 2020 and in 2021?</b></p>
+				</section>
+
+				<section data-auto-animate>
+					<p rfit-text style="font-size:120%"><b>eBird checklists between 2008 and 2022</b></p>
+							<pre><code data-trim data-line-numbers="1-4|5-11" class="R">
+						data %>% select(year,`SAMPLING EVENT IDENTIFIER`) %>% 
+  					group_by(year) %>% 
+  					summarise(n_list= n_distinct(`SAMPLING EVENT IDENTIFIER`)) %>%
+  					filter(year>=2008 )  %>% collect() %>%
+						ggplot(aes(y=n_list,x=year))+geom_point()+
+  						labs(y="Number of eBird lists",
+       					x="Year",
+       					title="Number of eBird lists submitted 
+						between 2008 and 2022 in Portugal",
+       					caption="Source: eBird basic dataset (PT)")+
+      				theme_bw()+ theme(text = element_text(size = 18))			
+					</code></pre>
+				</section>
+
+				<section>
+					<p rfit-text style="font-size:120%"><b>eBird checklists between 2008 and 2022</b></p>
+					<img data-src="img/plot1.png" height=550px>
+				</section>
+
+				<section data-auto-animate>
+					<p r-fit-text style="font-size:150%"><b>Ok, but what about the number of active birders? </b></p>
+				</section>
+
+
+				<section data-auto-animate>
+					<p rfit-text style="font-size:100%"><b>Number of active birders between 2008 and 2022</b></p>
+					<pre><code data-trim data-line-numbers="1-4|5-12" class="R">
+						data %>% select(year,`OBSERVER ID`) %>% 
+						group_by(year) %>% 
+						summarise(n_list= n_distinct(`OBSERVER ID`)) %>%
+						filter(year>=2008) %>% collect() %>%
+					 ggplot(aes(y=n_list,x=factor(year)))+
+						geom_point(size=3)+
+						labs(y="Number of active birders",
+						x="Year",
+						title="Number of active birders on eBird between 
+						2008 and 2022",
+						caption="Source: eBird basic dataset")+
+						theme_bw()+ theme(text = element_text(size = 18))				
+					</code></pre>
+				</section>
+
+				<section>
+					<p rfit-text style="font-size:100%"><b>Number of active birders between 2008 and 2022</b></p>
+					<img data-src="img/plot2.png" height=550px>
+				</section>
+
+				<section>
+					<h2>Scientific conclusions</h2>
+					<ul>
+						<li class="fragment"> There were fewer active birders in 2020 and 2021</li>
+						<li class="fragment"> Those that remained active...doubled down on birding</li>
+					</ul>
+				</section>
+
+				<section>
+					<p rfit-text style="font-size:100%"><b>Technical conclusion</b></p>
+					<img data-src="img/nice.jpg" height=500px>
+				</section>
+
+				<section>
+					<p rfit-text style="font-size:100%"><b>Thank God it's over</b></p>
+					<img data-src="img/peace_out.jpg" height=500px>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/zoom/zoom.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/search/search.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>
