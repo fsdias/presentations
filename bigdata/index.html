@@ -283,19 +283,19 @@ $ ``                               <null> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
 				<section data-auto-animate>
 					<p rfit-text style="font-size:100%"><b>Number of active birders between 2008 and 2022</b></p>
 					<pre><code data-trim data-line-numbers="1-4|5-12" class="R">
-					data %>% select(year,`OBSERVER ID`) %>% 
-  					group_by(year) %>% 
-  					summarise(n_list= n_distinct(`OBSERVER ID`)) %>%
- 					filter(year>=2008) %>% collect() %>%
-					ggplot(aes(y=n_list,x=year))+
-  					geom_point(size=3)+
-  					abs(y="Number of active birders",
+				data %>% select(year,`OBSERVER ID`) %>% 
+  				group_by(year) %>% 
+  				summarise(n_list= n_distinct(`OBSERVER ID`)) %>%
+ 				filter(year>=2008) %>% collect() %>%
+				ggplot(aes(y=n_list,x=year))+
+  				geom_point(size=3)+
+  				labs(y="Number of active birders",
       				x="Year",
      				title="Number of active birders on eBird between 2008 and 2022",
      				caption="Source: eBird basic dataset")+
- 					theme_bw()+ 
-					theme(text = element_text(size = 20,family="roboto condensed"))		
-					</code></pre>
+ 				theme_bw()+ 
+				theme(text = element_text(size = 20,family="roboto condensed"))		
+				</code></pre>
 				</section>
 
 				<section>
