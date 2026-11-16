@@ -6,7 +6,7 @@ Each folder holds one talk and has its own README describing it.
 
 | Folder | Talk | Event | Slides |
 |---|---|---|---|
-| [`speco21/`](speco21) | Analysing the distance decay of community similarity in river networks using Bayesian methods (in Portuguese) | 20.º Encontro Nacional de Ecologia (SPECO), November 2021 | [view](https://fsdias.github.io/presentations/speco21/) |
+| [`speco21/`](speco21) | Analysing the distance decay of community similarity in river networks using Bayesian methods (in Portuguese; [paper](https://doi.org/10.1038/s41598-021-01149-x)) | 20.º Encontro Nacional de Ecologia (SPECO), November 2021 | [view](https://fsdias.github.io/presentations/speco21/) |
 | [`bigdata/`](bigdata) | How to manage and process big datasets in R: an example with eBird data | Journal Club, March 2023 | [view](https://fsdias.github.io/presentations/bigdata/) |
 
 ## Viewing the slides

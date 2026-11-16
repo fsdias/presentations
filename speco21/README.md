@@ -18,7 +18,13 @@ The talk asks whether neutral or niche-based processes drive the decline in simi
 - **Model:** a Bayesian model of pairwise similarity, fitted in Stan.
 - **Main result:** both neutral and environmental factors are associated with the decay in similarity, which agrees with the continuum hypothesis.
 
-The work is described in more detail in the preprint [doi:10.32942/osf.io/sn5jr](https://doi.org/10.32942/osf.io/sn5jr).
+## Publication
+
+The study is published in *Scientific Reports*:
+
+> Dias, F. S., Betancourt, M., Rodríguez-González, P. M. & Borda-de-Água, L. (2021). Analysing the distance decay of community similarity in river networks using Bayesian methods. *Scientific Reports*, 11, 21660. [https://doi.org/10.1038/s41598-021-01149-x](https://doi.org/10.1038/s41598-021-01149-x)
+
+The slides point to the earlier preprint ([doi:10.32942/osf.io/sn5jr](https://doi.org/10.32942/osf.io/sn5jr)). Please cite the published article.
 
 ## Files
 
